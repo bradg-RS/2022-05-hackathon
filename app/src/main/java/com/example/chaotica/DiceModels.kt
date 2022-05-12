@@ -1,6 +1,7 @@
 package com.example.chaotica
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 
 enum class Die(val size: Int, val faces: List<Int>) {
   D4(4, listOf(1, 2, 3, 4)),
@@ -13,6 +14,9 @@ enum class Die(val size: Int, val faces: List<Int>) {
 }
 
 class DicePool(var dice: MutableList<Die>) {
+
+  val pool: MutableLiveData<DicePool> = MutableLiveData()
+
   fun addDieToPool(die: Die) {
     Log.i("❗️", "model add die called")
     Log.i(" : : ", dice.toString())

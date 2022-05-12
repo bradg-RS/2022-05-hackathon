@@ -28,6 +28,12 @@ class MainActivity : ComponentActivity() {
   }
 }
 
+// @Composable fun ChaoticaStateHolder(viewModel: MainViewModel, function: () -> Unit) {
+//
+//  val dicePoolState = viewModel.dicePool
+//  var dicePool by remember { mutableStateOf() }
+// }
+
 @Composable
 fun DieButton(die: Die, onClick: (Die) -> Unit) {
 
