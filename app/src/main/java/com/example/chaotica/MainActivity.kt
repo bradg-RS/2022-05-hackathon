@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
 import com.example.chaotica.ui.theme.ChaoticaTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,23 +18,31 @@ class MainActivity : ComponentActivity() {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
           Column {
             Text(text = "Current set: standard RPG 7-set")
-            Row { Die.values().forEach { DieButton(it, viewModel) } }
+            Row { Die.values().forEach { it -> DieButton(it) { viewModel.addDieToPool(it) } } }
             Text(text = "Current die pool")
-            Row {}
+            Row { DicePool(viewModel) }
           }
         }
       }
     }
   }
+}
 
-  @Composable
-  fun DieButton(die: Die, viewModel: ViewModel) {
-    Button(onClick = {}) {
-      Text(
-          when (die.name) {
-            "Dpc" -> "d%"
-            else -> die.name.lowercase()
-          })
-    }
+@Composable
+fun DieButton(die: Die, onClick: (Die) -> Unit) {
+
+  Button(onClick = { onClick(die) }) {
+    Text(
+        when (die.name) {
+          "Dpc" -> "d%"
+          else -> die.name.lowercase()
+        })
+  }
+}
+
+@Composable
+fun DicePool(viewModel: MainViewModel) {
+  viewModel.dicePool.dice.forEachIndexed { i, it ->
+    DieButton(it) { viewModel.removeDieFromPool(i) }
   }
 }
