@@ -1,8 +1,5 @@
 package com.example.chaotica
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-
 enum class Die(val size: Int, val faces: List<Int>) {
   D4(4, listOf(1, 2, 3, 4)),
   D6(6, listOf(1, 2, 3, 4, 5, 6)),
@@ -13,26 +10,8 @@ enum class Die(val size: Int, val faces: List<Int>) {
   D20(20, listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)),
 }
 
-class DicePool(var dice: MutableList<Die>) {
-
-  val pool: MutableLiveData<DicePool> = MutableLiveData()
-
-  fun addDieToPool(die: Die) {
-    Log.i("❗️", "model add die called")
-    Log.i(" : : ", dice.toString())
-    dice.add(die)
-    Log.i(" : ❗️ : ", dice.toString())
-  }
-  fun removeDieFromPool(position: Int) {
-    Log.i("❗️", "model remove die called")
-    Log.i("position", position.toString())
-    Log.i("list size", dice.size.toString())
-    dice.removeAt(position)
-  }
-}
+data class DicePool(var dice: List<Die>)
 
 data class DieResult(val result: Int, val dice: Die)
 
-class ResultPool(results: List<DieResult>, sum: Int) {
-  val sum = results.fold(0) { acc: Int, dieResult: DieResult -> acc + dieResult.result }
-}
+data class ResultPool(val results: List<DieResult>, val sum: Int)
