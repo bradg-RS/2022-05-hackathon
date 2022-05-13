@@ -42,7 +42,16 @@ fun MainScreen() {
       }
     }
 
-    Row { Text(text = resultPoolState.results.toString()) }
+    var output = "Results: "
+    for (i in resultPoolState.results) {
+      output += i.result.toString()
+      if (i != resultPoolState.results.last()) output += ", "
+    }
+    output += "\nSum: " + resultPoolState.sum.toString()
+    Text(
+        modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+        //        text = resultPoolState.results.toString()
+        text = output)
   }
 }
 

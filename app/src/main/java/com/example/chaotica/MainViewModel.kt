@@ -14,9 +14,10 @@ class MainViewModel : ViewModel() {
 
   fun rollDicePool(dicePool: DicePool): ResultPool {
     val results = mutableListOf<DieResult>()
-    dicePool.dice.forEachIndexed { i, it ->
-      val result = (1..it.size).random()
-      results[i] = DieResult(result, it)
+    dicePool.dice.forEach {
+      val randomFace = (0 until it.size).random()
+      val result = it.faces[randomFace]
+      results.add(DieResult(result, it))
     }
     val sum = results.fold(0) { acc: Int, dieResult: DieResult -> acc + dieResult.result }
     return ResultPool(results, sum)
